@@ -1,6 +1,5 @@
 package evhen_project.makeup.service.product.interfaces;
 
-import evhen_project.makeup.entity.Price;
 import evhen_project.makeup.entity.Product;
 
 import java.util.List;

@@ -1,9 +1,6 @@
 package evhen_project.makeup.controller;
 
-import evhen_project.makeup.entity.Information;
 import evhen_project.makeup.entity.Product;
-import evhen_project.makeup.service.information.impls.InformationService;
-import evhen_project.makeup.service.price.impls.PriceService;
 import evhen_project.makeup.service.product.impls.ProductService;
 import org.springframework.web.bind.annotation.*;
 

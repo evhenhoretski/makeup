@@ -13,15 +13,7 @@ public class Product {
     private String kind;
     private String sale;
     @ManyToOne
-    @JoinColumn(name = "price_id")
-    private Price price;
-    @ManyToOne
-    @JoinColumn(name = "sales_id")
-    private Sales sales;
-    @ManyToOne
-    @JoinColumn(name = "female_id")
-    private Female female;
-    @ManyToOne
-    @JoinColumn(name = "male_id")
-    private Male male;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
 }
