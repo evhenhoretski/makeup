@@ -7,11 +7,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Person {
+public class Information {
     @Id
     private Long id;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
 }

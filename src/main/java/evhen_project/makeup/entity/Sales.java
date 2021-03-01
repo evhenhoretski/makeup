@@ -8,11 +8,12 @@ import java.util.Set;
 
 @Data
 @Entity
-public class Price {
+public class Sales {
     @Id
     private Long id;
     private BigDecimal price;
     private String name;
-    @OneToMany(mappedBy = "price")
+    @OneToMany(mappedBy = "sales")
     private Set<Product> products;
+
 }
