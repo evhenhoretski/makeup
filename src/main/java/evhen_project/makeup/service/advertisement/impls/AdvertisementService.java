@@ -1,42 +1,53 @@
 package evhen_project.makeup.service.advertisement.impls;
 
+import evhen_project.makeup.dto.AdvertismentRequest;
+import evhen_project.makeup.dto.AdvertismentResponse;
 import evhen_project.makeup.entity.Advertisement;
-import evhen_project.makeup.entity.Category;
 import evhen_project.makeup.repository.AdvertisementRepository;
-import evhen_project.makeup.repository.CategoryRepository;
 import evhen_project.makeup.service.advertisement.interfaces.IAdvertisementService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.stream.Collectors;
 
+@Service
+@RequiredArgsConstructor
 public class AdvertisementService implements IAdvertisementService {
     @Autowired
     private AdvertisementRepository advertisementRepository;
     @Override
-    public List<Advertisement> getAll() {
-        return advertisementRepository.findAll();
+    public List<AdvertismentResponse> getAll() {
+        var advertisements = advertisementRepository.findAll();
+        return advertisements.stream().map(AdvertismentResponse::mapToAdvertismentResponse).collect(Collectors.toList());
     }
 
 
     @Override
-    public Advertisement getById(Long id) {
+    public AdvertismentResponse getById(Long id) {
         Optional<Advertisement> result = advertisementRepository.findById(id);
         if (result.isPresent()) {
-            return result.get();
+            return AdvertismentResponse.mapToAdvertismentResponse(result.get());
         } else {
             return null;
         }
     }
 
     @Override
-    public Advertisement create(Advertisement advertisement) {
-        return advertisementRepository.save(advertisement);
+    public AdvertismentResponse create(AdvertismentRequest advertisement) {
+        var newAdvertisment  =  Advertisement.builder()
+                .id(new Random().nextLong())
+                .name(advertisement.getName());
+        return null;
+                //AdvertismentResponse.mapToAdvertismentResponse(advertisementRepository.save(newAdvertisment));;
     }
 
     @Override
-    public Advertisement update(Long id, Advertisement advertisement) {
-        return advertisementRepository.save(advertisement);
+    public AdvertismentResponse update(Long id, Advertisement advertisement) {
+        return AdvertismentResponse.mapToAdvertismentResponse(advertisementRepository.save(advertisement));
     }
 
     @Override
