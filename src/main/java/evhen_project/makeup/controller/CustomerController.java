@@ -4,14 +4,16 @@ import evhen_project.makeup.dto.CustomerRequest;
 import evhen_project.makeup.dto.CustomerResponse;
 import evhen_project.makeup.entity.Customer;
 import evhen_project.makeup.service.customer.impls.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/customer")
 public class CustomerController {
-    CustomerService customerService;
+    public final CustomerService customerService;
 
     @GetMapping()
     public List<CustomerResponse> getAll(@RequestParam(required = false, defaultValue = "10") Integer size,

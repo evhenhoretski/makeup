@@ -1,6 +1,5 @@
 package evhen_project.makeup.controller;
 
-import evhen_project.makeup.dto.AdvertismentRequest;
 import evhen_project.makeup.dto.AdvertismentResponse;
 import evhen_project.makeup.entity.Advertisement;
 import evhen_project.makeup.service.advertisement.impls.AdvertisementService;
@@ -13,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping( "/v1/advertisement")
 public class AdvertisementController {
-    AdvertisementService advertisementService;
+    public final AdvertisementService advertisementService;
 
     @GetMapping()
     public List<AdvertismentResponse> getAll(@RequestParam(required = false, defaultValue = "10") Integer size,
@@ -27,7 +26,7 @@ public class AdvertisementController {
     }
 
     @PostMapping
-    public AdvertismentResponse create(@RequestBody AdvertismentRequest advertisement){
+    public AdvertismentResponse create(@RequestBody Advertisement advertisement){
         return advertisementService.create(advertisement);
     }
 

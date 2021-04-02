@@ -1,17 +1,19 @@
 package evhen_project.makeup.controller;
 
-import evhen_project.makeup.dto.InformationRequest;
 import evhen_project.makeup.dto.InformationResponse;
 import evhen_project.makeup.entity.Information;
 import evhen_project.makeup.service.information.impls.InformationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/information")
 public class InformationController {
-    InformationService informationService;
+
+    public final InformationService informationService;
 
     @GetMapping()
     public List<InformationResponse> getAll(@RequestParam(required = false, defaultValue = "10") Integer size,
@@ -25,7 +27,7 @@ public class InformationController {
     }
 
     @PostMapping
-    public InformationResponse create(@RequestBody InformationRequest information) {
+    public InformationResponse create(@RequestBody Information information) {
         return informationService.create(information);
     }
 

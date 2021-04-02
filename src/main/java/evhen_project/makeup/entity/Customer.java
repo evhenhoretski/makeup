@@ -1,9 +1,6 @@
 package evhen_project.makeup.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,6 +16,7 @@ public class Customer {
     @Id
     private Long id;
     private String name;
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "customer")
     private Set<Product> products;
 }

@@ -10,6 +10,7 @@ public interface ICustomerService {
     List<CustomerResponse> getAll();
     CustomerResponse getById(Long id);
     CustomerResponse create(CustomerRequest customer);
+    //CustomerResponse create(Customer customer);
     CustomerResponse update(Long id, Customer customer);
     void delete(Long id);
 }

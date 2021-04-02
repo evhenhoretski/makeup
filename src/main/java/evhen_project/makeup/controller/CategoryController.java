@@ -1,12 +1,8 @@
 package evhen_project.makeup.controller;
 
-import evhen_project.makeup.dto.CategoryRequest;
 import evhen_project.makeup.dto.CategoryResponse;
 import evhen_project.makeup.entity.Category;
 import evhen_project.makeup.service.category.impls.CategoryService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/categories")
-@Api(value = "Category controller")
+@RequestMapping("/categories")
+//@Api(value = "Category controller")
 public class CategoryController {
-    CategoryService categoryService;
+    public final CategoryService categoryService;
 
     @GetMapping()
     public List<CategoryResponse> getAll(@RequestParam(required = false, defaultValue = "10") Integer size,
@@ -25,9 +21,9 @@ public class CategoryController {
         return categoryService.getAll();
     }
 
-    @ApiOperation( value = "Get by id", notes = "This method get by id")
+    //@ApiOperation( value = "Get by id", notes = "This method get by id")
     @GetMapping("/{id}")
-    @ApiResponse(code = 200,message = "Successful get by id")
+    //@ApiResponse(code = 200,message = "Successful get by id")
     public CategoryResponse getById(@PathVariable Long id){
         return categoryService.getById(id);
     }
@@ -38,7 +34,7 @@ public class CategoryController {
 //            example = "10")
 
     @PostMapping
-    public CategoryResponse create(@RequestBody CategoryRequest category){
+    public CategoryResponse create(@RequestBody Category category){
         return categoryService.create(category);
     }
 
