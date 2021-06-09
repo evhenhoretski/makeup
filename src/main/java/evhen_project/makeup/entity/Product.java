@@ -5,7 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Data
 @Entity
@@ -18,6 +21,8 @@ public class Product {
     private String name;
     private String kind;
     private String sale;
+//    private BigDecimal price;
+//    private Currency currency;
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

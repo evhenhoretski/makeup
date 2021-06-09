@@ -19,13 +19,15 @@ public class AdvertisementService implements IAdvertisementService {
     @Override
     public List<AdvertismentResponse> getAll() {
         var advertisements = advertisementRepository.findAll();
-        return advertisements.stream().map(AdvertismentResponse::mapToAdvertismentResponse).collect(Collectors.toList());
+        return advertisements.stream().map(AdvertismentResponse::mapToAdvertismentResponse)
+                .collect(Collectors.toList());
     }
 
 
     @Override
     public AdvertismentResponse getById(Long id) {
-        Advertisement result = advertisementRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Advertisement result = advertisementRepository.findById(id)
+                .orElseThrow(NoSuchElementException::new);
 
         return AdvertismentResponse.mapToAdvertismentResponse(result);
     }
@@ -33,12 +35,14 @@ public class AdvertisementService implements IAdvertisementService {
     @Override
     public AdvertismentResponse create(Advertisement advertisement) {
         //var newAdvertisement  =  advertisementMapper.fromRequest(advertisement);
-        return AdvertismentResponse.mapToAdvertismentResponse(advertisementRepository.save(advertisement));
+        return AdvertismentResponse.mapToAdvertismentResponse(advertisementRepository
+                .save(advertisement));
     }
 
     @Override
     public AdvertismentResponse update(Long id, Advertisement advertisement) {
-        return AdvertismentResponse.mapToAdvertismentResponse(advertisementRepository.save(advertisement));
+        return AdvertismentResponse.mapToAdvertismentResponse(advertisementRepository
+                .save(advertisement));
     }
 
     @Override

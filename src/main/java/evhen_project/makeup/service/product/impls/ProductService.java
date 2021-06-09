@@ -15,6 +15,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductService implements IProductService {
     private final ProductRepository productRepository;
+
+//    @PostConstruct
+//    public void method() {
+//        var product = new Product();
+//        product.setCurrency(Currency.getInstance("UAH"));
+//        product.setPrice(BigDecimal.valueOf(191));
+//
+//        //createProduct(product);
+//    }
+
+    //private final CurrencyService currencyService;
+
     @Override
     public List<ProductResponse> getAll() {
         var products = productRepository.findAll();

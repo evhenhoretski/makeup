@@ -4,41 +4,50 @@ import evhen_project.makeup.dto.InformationResponse;
 import evhen_project.makeup.entity.Information;
 import evhen_project.makeup.service.information.impls.InformationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/information")
+@RequestMapping(value = "/information", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class InformationController {
 
     public final InformationService informationService;
 
     @GetMapping()
-    public List<InformationResponse> getAll(@RequestParam(required = false, defaultValue = "10") Integer size,
+    @PreAuthorize("hasAnyRole('ADMIN, USER')")
+    public ResponseEntity<List<InformationResponse>> getAll(@RequestParam(required = false, defaultValue = "10") Integer size,
                                             @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return informationService.getAll();
+        return ResponseEntity.ok(informationService.getAll());
     }
 
     @GetMapping("/{id}")
-    public InformationResponse getById(@PathVariable Long id) {
-        return informationService.getById(id);
+    @PreAuthorize("hasAnyRole('ADMIN, USER')")
+    public ResponseEntity<InformationResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(informationService.getById(id));
     }
 
     @PostMapping
-    public InformationResponse create(@RequestBody Information information) {
-        return informationService.create(information);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<InformationResponse> create(@RequestBody Information information) {
+        return ResponseEntity.ok(informationService.create(information));
     }
 
     @PutMapping("/{id}")
-    public InformationResponse update(@PathVariable Long id, @RequestBody Information information) {
-        return informationService.update(id, information);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<InformationResponse> update(@PathVariable Long id, @RequestBody Information information) {
+        return ResponseEntity.ok(informationService.update(id, information));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(Long id) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> delete(Long id) {
         informationService.delete(id);
+        return ResponseEntity.ok("Successfully deleted");
     }
 
 //    @GetMapping("/{categoryId}/products")

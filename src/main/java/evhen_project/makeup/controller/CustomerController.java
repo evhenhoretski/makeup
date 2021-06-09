@@ -5,39 +5,48 @@ import evhen_project.makeup.dto.CustomerResponse;
 import evhen_project.makeup.entity.Customer;
 import evhen_project.makeup.service.customer.impls.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/customer")
+@RequestMapping(value = "/customer", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerController {
     public final CustomerService customerService;
 
     @GetMapping()
-    public List<CustomerResponse> getAll(@RequestParam(required = false, defaultValue = "10") Integer size,
+    @PreAuthorize("hasAnyRole('ADMIN, USER')")
+    public ResponseEntity<List<CustomerResponse>> getAll(@RequestParam(required = false, defaultValue = "10") Integer size,
                                          @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return customerService.getAll();
+        return ResponseEntity.ok(customerService.getAll());
     }
 
     @GetMapping("/{id}")
-    public CustomerResponse getById(@PathVariable Long id) {
-        return customerService.getById(id);
+    @PreAuthorize("hasAnyRole('ADMIN, USER')")
+    public ResponseEntity<CustomerResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(customerService.getById(id));
     }
 
     @PostMapping
-    public CustomerResponse create(@RequestBody CustomerRequest customer) {
-        return customerService.create(customer);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<CustomerResponse> create(@RequestBody CustomerRequest customer) {
+        return ResponseEntity.ok(customerService.create(customer));
     }
 
     @PutMapping("/{id}")
-    public CustomerResponse update(@PathVariable Long id, @RequestBody Customer customer) {
-        return customerService.update(id, customer);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<CustomerResponse> update(@PathVariable Long id, @RequestBody Customer customer) {
+        return ResponseEntity.ok(customerService.update(id, customer));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(Long id) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> delete(Long id) {
         customerService.delete(id);
+        return ResponseEntity.ok("Successfully deleted");
     }
 }

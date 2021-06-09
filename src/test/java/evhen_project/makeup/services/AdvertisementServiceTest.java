@@ -50,7 +50,7 @@ public class AdvertisementServiceTest {
 
     @Test
     void testSuccessfulGetById(){
-        var advertisement = AdvertisementStub.getRandomAdvertisement();
+        var advertisement = getRandomAdvertisement();
         when(advertisementRepository.findById(any())).thenReturn(Optional.of(advertisement));
         var result = service.getById(AdvertisementStub.ID);
 
@@ -69,10 +69,10 @@ public class AdvertisementServiceTest {
     @Test
     void createSuccessful() {
         var captor = ArgumentCaptor.forClass(Advertisement.class);
-        var advertisement = AdvertisementStub.getRandomAdvertisement();
+        var advertisement = getRandomAdvertisement();
         //when(categoryMapper.fromRequest(any())).thenReturn(category);
-        when(advertisementRepository.save(any())).thenReturn(AdvertisementStub.getRandomAdvertisement());
-        var result = service.create(AdvertisementStub.getRandomAdvertisement());
+        when(advertisementRepository.save(any())).thenReturn(getRandomAdvertisement());
+        var result = service.create(getRandomAdvertisement());
         Mockito.verify(advertisementRepository, atLeast(1)).save(captor.capture());
         assertEquals(advertisement, captor.getValue());
         assertEquals(advertisement.getName(), result.getName());
@@ -82,9 +82,9 @@ public class AdvertisementServiceTest {
     @Test
     void updateSuccessful() {
         var captor = ArgumentCaptor.forClass(Advertisement.class);
-        var advertisement = AdvertisementStub.getRandomAdvertisement();
-        when(advertisementRepository.save(any())).thenReturn(AdvertisementStub.getRandomAdvertisement());
-        var result = service.update(AdvertisementStub.ID, AdvertisementStub.getRandomAdvertisement());
+        var advertisement = getRandomAdvertisement();
+        when(advertisementRepository.save(any())).thenReturn(getRandomAdvertisement());
+        var result = service.update(AdvertisementStub.ID, getRandomAdvertisement());
         Mockito.verify(advertisementRepository, atLeast(1)).save(captor.capture());
         assertEquals(advertisement, captor.getValue());
         assertEquals(advertisement.getName(), result.getName());
