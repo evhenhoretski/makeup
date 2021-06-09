@@ -18,6 +18,7 @@ import java.util.Date;
 public class JwtUtils {
     public static final SecretKey KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
+
     public String generateJwtToken(Authentication authentication) {
         var principal = (UserDetailsImpl) authentication.getPrincipal();
 
